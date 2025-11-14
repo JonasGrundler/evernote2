@@ -25,6 +25,13 @@ PIPELINE_PATH  = os.path.join(MODEL_DIR, "pipeline_{SUFFIX}.joblib")
 LABELS_PATH    = os.path.join(MODEL_DIR, "labels_{SUFFIX}.joblib")
 THRESH_PATH    = os.path.join(MODEL_DIR, "thresholds_{SUFFIX}.joblib")
 
+sys.stdout.write("MODEL_DIR     = {MODEL_DIR}\n")
+sys.stdout.write("PIPELINE_PATH = {PIPELINE_PATH}\n")
+sys.stdout.write("LABELS_PATH   = {LABELS_PATH}\n")
+sys.stdout.write("THRESH_PATH   = {THRESH_PATH}\n")
+sys.stdout.flush()
+
+
 # Spalten im CSV
 # id,year,created,filename,title,author,text,tags
 ID_COL       = "id"
