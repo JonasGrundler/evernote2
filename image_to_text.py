@@ -1,6 +1,6 @@
 import os
 import numpy as np
-from Pillow import Image
+from PIL import Image
 from paddleocr import TextDetection, TextRecognition
 from datetime import datetime
 import sys
