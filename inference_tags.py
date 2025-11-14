@@ -21,9 +21,9 @@ args = parser.parse_args()
 SUFFIX = args.suffix
 
 MODEL_DIR      = os.path.join(os.environ["PADDLE_DIR"], "model_artifacts")
-PIPELINE_PATH  = os.path.join(MODEL_DIR, "pipeline_{SUFFIX}.joblib")
-LABELS_PATH    = os.path.join(MODEL_DIR, "labels_{SUFFIX}.joblib")
-THRESH_PATH    = os.path.join(MODEL_DIR, "thresholds_{SUFFIX}.joblib")
+PIPELINE_PATH  = os.path.join(MODEL_DIR, f"pipeline_{SUFFIX}.joblib")
+LABELS_PATH    = os.path.join(MODEL_DIR, f"labels_{SUFFIX}.joblib")
+THRESH_PATH    = os.path.join(MODEL_DIR, f"thresholds_{SUFFIX}.joblib")
 
 sys.stdout.write(f"MODEL_DIR     = {MODEL_DIR}\n")
 sys.stdout.write(f"PIPELINE_PATH = {PIPELINE_PATH}\n")
