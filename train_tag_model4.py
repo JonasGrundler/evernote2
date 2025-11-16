@@ -3,6 +3,7 @@ import re
 import numpy as np
 import pandas as pd
 import argparse
+from pathlib import Path
 from collections import Counter
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MultiLabelBinarizer
@@ -17,7 +18,8 @@ import joblib
 # ==========================
 # 0) CONFIG
 # ==========================
-CSV_PATH      = r"C:\Users\Jonas\.jg-evernote\enex-batch\csv\summary.csv"
+CSV_PATH      = os.getenv("CSV_PATH")  # r"C:\Users\Jonas\.jg-evernote\enex-batch\csv\summary.csv"
+INT_PATH      = os.getenv("INT_PATH")
 TEXT_COL      = "text"
 TAGS_COL      = "tags"
 TITLE_COL     = "title"    # falls nicht vorhanden, wird leer gesetzt
@@ -62,9 +64,16 @@ parser.add_argument(
     default=1900,
     help="Nur Zeilen verwenden, deren Jahr >= diesem Jahr ist (z.B. 2020)"
 )
+parser.add_argument(
+    "--max_year",
+    type=int,
+    default=2300,
+    help="Nur Zeilen verwenden, deren Jahr <= diesem Jahr ist (z.B. 2020)"
+)
 args = parser.parse_args()
 SUFFIX = args.suffix
 MIN_YEAR = args.min_year
+MAX_YEAR = args.max_year
 
 
 def is_excluded_label(t: str) -> bool:
@@ -93,7 +102,14 @@ def is_year_label(t: str) -> bool:
 # ==========================
 # 1) CSV einlesen & vorbereiten
 # ==========================
-df = pd.read_csv(CSV_PATH)
+df1 = pd.read_csv(CSV_PATH)
+
+if Path(INT_PATH).exists():
+    df2 = pd.read_csv(INT_PATH)
+    df = pd.concat([df1, df2], ignore_index=True)
+else:
+    df = df1
+
 df = df[df["year"] >= MIN_YEAR].copy()
 
 def split_tags(x):
