@@ -103,6 +103,7 @@ def is_year_label(t: str) -> bool:
 # 1) CSV einlesen & vorbereiten
 # ==========================
 df1 = pd.read_csv(CSV_PATH)
+var df
 
 if INT_PATH is not None:
     if Path(INT_PATH).exists():
