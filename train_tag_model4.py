@@ -104,11 +104,12 @@ def is_year_label(t: str) -> bool:
 # ==========================
 df1 = pd.read_csv(CSV_PATH)
 
-if Path(INT_PATH).exists():
-    df2 = pd.read_csv(INT_PATH)
-    df = pd.concat([df1, df2], ignore_index=True)
-else:
-    df = df1
+if INT_PATH is not None:
+    if Path(INT_PATH).exists():
+        df2 = pd.read_csv(INT_PATH)
+        df = pd.concat([df1, df2], ignore_index=True)
+    else:
+        df = df1
 
 df = df[df["year"] >= MIN_YEAR].copy()
 
