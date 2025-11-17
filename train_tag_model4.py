@@ -19,7 +19,7 @@ import joblib
 # ==========================
 # 0) CONFIG
 # ==========================
-print("start training " + datetime.now())
+print("start training " + datetime.now().strftime("%H:%M:%S"))
 CSV_PATH      = os.getenv("CSV_PATH")  # r"C:\Users\Jonas\.jg-evernote\enex-batch\csv\summary.csv"
 INT_PATH      = os.getenv("INT_PATH")
 TEXT_COL      = "text"
@@ -381,4 +381,4 @@ with open(report_path, "w", encoding="utf-8") as f:
     f.write("=== REPORT (micro/macro) ===\n")
     f.write(report_str)
 
-print("ended training " + datetime.now())
+print("ended training " + datetime.now().strftime("%H:%M:%S"))
