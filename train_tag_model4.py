@@ -367,9 +367,9 @@ print(report_str)
 out_dir = f"model_artifacts"
 
 os.makedirs("model_artifacts", exist_ok=True)
-joblib.dump(pipe,       os.path.join(out_dir, f"pipeline_{SUFFIX}_{MIN_YEAR}.joblib"))
-joblib.dump(mlb,        os.path.join(out_dir, f"labels_{SUFFIX}_{MIN_YEAR}.joblib"))
-joblib.dump(thresholds, os.path.join(out_dir, f"thresholds_{SUFFIX}_{MIN_YEAR}.joblib"))
+joblib.dump(pipe,       os.path.join(out_dir, f"pipeline_{SUFFIX}.joblib"))
+joblib.dump(mlb,        os.path.join(out_dir, f"labels_{SUFFIX}.joblib"))
+joblib.dump(thresholds, os.path.join(out_dir, f"thresholds_{SUFFIX}.joblib"))
 
 #joblib.dump(pipe,       "model_artifacts/pipeline_v5.joblib")  # cc = ClassifierChain
 #joblib.dump(mlb,        "model_artifacts/labels_v5.joblib")
