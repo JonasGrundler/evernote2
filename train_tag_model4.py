@@ -3,6 +3,7 @@ import re
 import numpy as np
 import pandas as pd
 import argparse
+from datetime import datetime
 from pathlib import Path
 from collections import Counter
 from sklearn.model_selection import train_test_split
@@ -18,6 +19,7 @@ import joblib
 # ==========================
 # 0) CONFIG
 # ==========================
+print("start training " + datetime.now())
 CSV_PATH      = os.getenv("CSV_PATH")  # r"C:\Users\Jonas\.jg-evernote\enex-batch\csv\summary.csv"
 INT_PATH      = os.getenv("INT_PATH")
 TEXT_COL      = "text"
@@ -378,3 +380,5 @@ report_path = os.path.join(out_dir, f"report_{SUFFIX}.txt")
 with open(report_path, "w", encoding="utf-8") as f:
     f.write("=== REPORT (micro/macro) ===\n")
     f.write(report_str)
+
+print("ended training " + datetime.now())
