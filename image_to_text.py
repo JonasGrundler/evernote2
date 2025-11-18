@@ -5,6 +5,9 @@ from paddleocr import TextDetection, TextRecognition
 from datetime import datetime
 import sys
 
+sys.stdout.reconfigure(encoding="utf-8")
+sys.stderr.reconfigure(encoding="utf-8")
+
 os.environ["CUDA_VISIBLE_DEVICES"] = ""
 
 # 1) Modelle laden
