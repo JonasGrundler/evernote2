@@ -9,6 +9,9 @@ import argparse
 # ==========================
 # 0) CONFIG
 # ==========================
+sys.stdout.reconfigure(encoding="utf-8")
+sys.stderr.reconfigure(encoding="utf-8")
+
 parser = argparse.ArgumentParser()
 parser.add_argument(
     "--suffix",
