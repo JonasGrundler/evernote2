@@ -19,6 +19,9 @@ import joblib
 # ==========================
 # 0) CONFIG
 # ==========================
+sys.stdout.reconfigure(encoding="utf-8")
+sys.stderr.reconfigure(encoding="utf-8")
+
 print("start training " + datetime.now().strftime("%H:%M:%S"))
 CSV_PATH      = os.getenv("CSV_PATH")  # r"C:\Users\Jonas\.jg-evernote\enex-batch\csv\summary.csv"
 INT_PATH      = os.getenv("INT_PATH")
