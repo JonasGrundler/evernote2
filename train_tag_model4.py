@@ -117,23 +117,33 @@ def is_year_label(t: str) -> bool:
 # ==========================
 # 1) CSV einlesen & vorbereiten
 # ==========================
+
+df = pd.read_csv(CSV_PATH)
+sys.stdout.write("df size:" + str(len(df)))
+sys.stdout.flush()
+
 # Szenario "alles"
 if INT_PATH is None and LAST_PERCENTAGE == 100:
-    df = pd.read_csv(CSV_PATH)
+    #df = pd.read_csv(CSV_PATH)
 # Szenario "Nur ein Teil"
 elif INT_PATH is None and LAST_PERCENTAGE < 100:
-    df = pd.read_csv(CSV_PATH)
+    #df = pd.read_csv(CSV_PATH)
     df = df.sort_values(by=["year", "created"], ascending=[True, True])
     n_keep = max(1, int(len(df) * LAST_PERCENTAGE / 100))
     df = df.tail(n_keep)
 elif INT_PATH is not None and LAST_PERCENTAGE <= 100:
-    df_csv = pd.read_csv(CSV_PATH)
+    #df_csv = pd.read_csv(CSV_PATH)
+    df = df.sort_values(by=["year", "created"], ascending=[True, True])
     df_int = pd.read_csv(INT_PATH)
     df = pd.concat([df_csv, df_int], ignore_index=True)
     n_keep = max(len(df_int), int(len(df) * LAST_PERCENTAGE / 100))
     df = df.tail(n_keep)
 else:
-    print("cannot work with parameters: int_path=" + INT_PATH + ", csv_path=" + CSV_PATH + ", last_percentage=" + LAST_PERCENTAGE)
+    sys.stdout.write("cannot work with parameters: int_path=" + INT_PATH + ", csv_path=" + CSV_PATH + ", last_percentage=" + LAST_PERCENTAGE)
+    sys.stdout.flush()
+
+sys.stdout.write("final dataset size:" + str(len(df)))
+sys.stdout.flush()
 
 
 def split_tags(x):
