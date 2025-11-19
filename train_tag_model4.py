@@ -128,12 +128,12 @@ if INT_PATH is None and LAST_PERCENTAGE == 100:
 # Szenario "Nur ein Teil"
 elif INT_PATH is None and LAST_PERCENTAGE < 100:
     #df = pd.read_csv(CSV_PATH)
-    df = df_csv.sort_values(by=["year", "created"], ascending=[False, False])
+    df = df_csv.sort_values(by=["year", "created"], ascending=[True, True])
     n_keep = max(1, int(len(df) * LAST_PERCENTAGE / 100))
     df = df.tail(n_keep)
 elif INT_PATH is not None and LAST_PERCENTAGE <= 100:
     #df_csv = pd.read_csv(CSV_PATH)
-    df = df_csv.sort_values(by=["year", "created"], ascending=[False, False])
+    df = df_csv.sort_values(by=["year", "created"], ascending=[True, True])
     df_int = pd.read_csv(INT_PATH)
     sys.stdout.write("df_int size:" + str(len(df_int)) + "\n")
     sys.stdout.flush()
