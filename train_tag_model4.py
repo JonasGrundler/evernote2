@@ -137,7 +137,7 @@ elif INT_PATH is not None and LAST_PERCENTAGE <= 100:
     df_int = pd.read_csv(INT_PATH)
     sys.stdout.write("df_int size:" + str(len(df_int)) + "\n")
     sys.stdout.flush()
-    df = pd.concat([df_csv, df_int], ignore_index=True)
+    df = pd.concat([df, df_int], ignore_index=True)
     n_keep = max(len(df_int), int(len(df) * LAST_PERCENTAGE / 100))
     df = df.tail(n_keep)
     df.to_csv(INT_PATH + ".merged", index=False, encoding="utf-8")
