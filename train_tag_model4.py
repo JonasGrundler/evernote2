@@ -124,16 +124,16 @@ if INT_PATH is None and LAST_PERCENTAGE == 100:
 elif INT_PATH is None and LAST_PERCENTAGE < 100:
     df = pd.read_csv(CSV_PATH)
     df = df.sort_values(by=["year", "created"], ascending=[True, True])
-    n_keep = max(1, int(len(df) * last_percentage / 100))
+    n_keep = max(1, int(len(df) * LAST_PERCENTAGE / 100))
     df = df.tail(n_keep)
 elif INT_PATH is not None and LAST_PERCENTAGE <= 100:
     df_csv = pd.read_csv(CSV_PATH)
     df_int = pd.read_csv(INT_PATH)
     df = pd.concat([df_csv, df_int], ignore_index=True)
-    n_keep = max(len(df_int), int(len(df) * last_percentage / 100))
+    n_keep = max(len(df_int), int(len(df) * LAST_PERCENTAGE / 100))
     df = df.tail(n_keep)
 else:
-    print("cannot work with parameters: int_path=" + int_path + ", csv_path=" + csv_path + ", last_percentage=" + last_percentage)
+    print("cannot work with parameters: int_path=" + INT_PATH + ", csv_path=" + CSV_PATH + ", last_percentage=" + LAST_PERCENTAGE)
 
 
 def split_tags(x):
