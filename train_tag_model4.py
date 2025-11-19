@@ -88,7 +88,7 @@ CSV_PATH = args.csv_path
 INT_PATH = args.int_path
 LAST_PERCENTAGE = args.last_percentage
 
-sys.stdout.write("parameters: suffix=" + SUFFIX + ", csv_path=" + CSV_PATH + ", int_path=" + INT_PATH + ", last_percentage=" + str(LAST_PERCENTAGE))
+sys.stdout.write("parameters: suffix=" + SUFFIX + ", csv_path=" + CSV_PATH + ", int_path=" + INT_PATH + ", last_percentage=" + str(LAST_PERCENTAGE) + "\n")
 sys.stdout.flush()
 
 def is_excluded_label(t: str) -> bool:
@@ -119,7 +119,7 @@ def is_year_label(t: str) -> bool:
 # ==========================
 
 df_csv = pd.read_csv(CSV_PATH)
-sys.stdout.write("df size:" + str(len(df_csv)))
+sys.stdout.write("df size:" + str(len(df_csv)) + "\n")
 sys.stdout.flush()
 
 # Szenario "alles"
@@ -135,16 +135,16 @@ elif INT_PATH is not None and LAST_PERCENTAGE <= 100:
     #df_csv = pd.read_csv(CSV_PATH)
     df = df_csv.sort_values(by=["year", "created"], ascending=[True, True])
     df_int = pd.read_csv(INT_PATH)
-    sys.stdout.write("df_int size:" + str(len(df_int)))
+    sys.stdout.write("df_int size:" + str(len(df_int)) + "\n")
     sys.stdout.flush()
     df = pd.concat([df_csv, df_int], ignore_index=True)
     n_keep = max(len(df_int), int(len(df) * LAST_PERCENTAGE / 100))
     df = df.tail(n_keep)
 else:
-    sys.stdout.write("cannot work with parameters: int_path=" + INT_PATH + ", csv_path=" + CSV_PATH + ", last_percentage=" + LAST_PERCENTAGE)
+    sys.stdout.write("cannot work with parameters: int_path=" + INT_PATH + ", csv_path=" + CSV_PATH + ", last_percentage=" + LAST_PERCENTAGE + "\n")
     sys.stdout.flush()
 
-sys.stdout.write("final dataset size:" + str(len(df)))
+sys.stdout.write("final dataset size:" + str(len(df)) + "\n")
 sys.stdout.flush()
 
 
