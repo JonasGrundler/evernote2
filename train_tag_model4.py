@@ -88,8 +88,8 @@ CSV_PATH = args.csv_path
 INT_PATH = args.int_path
 LAST_PERCENTAGE = args.last_percentage
 
-print("parameters: suffix=" + SUFFIX + ", csv_path=" + CSV_PATH + ", int_path=" + INT_PATH + ", last_percentage=" + LAST_PERCENTAGE)
-
+sys.stdout.write("parameters: suffix=" + SUFFIX + ", csv_path=" + CSV_PATH + ", int_path=" + INT_PATH + ", last_percentage=" + LAST_PERCENTAGE)
+sys.stdout.flush()
 
 def is_excluded_label(t: str) -> bool:
     """
