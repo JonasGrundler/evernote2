@@ -24,10 +24,9 @@ sys.stdout.reconfigure(encoding="utf-8")
 sys.stderr.reconfigure(encoding="utf-8")
 
 print("start training " + datetime.now().strftime("%H:%M:%S"))
-CSV_PATH      = os.getenv("CSV_PATH")  # r"C:\Users\Jonas\.jg-evernote\enex-batch\csv\summary.csv"
-INT_PATH      = os.getenv("INT_PATH")
 TEXT_COL      = "text"
 TAGS_COL      = "tags"
+YEAR_COL      = "year"
 TITLE_COL     = "title"    # falls nicht vorhanden, wird leer gesetzt
 AUTHOR_COL    = "author"   # falls nicht vorhanden, wird leer gesetzt
 
@@ -65,21 +64,29 @@ parser.add_argument(
     help="Versions-Suffix für die Artefakt-Dateinamen, z.B. 'v5', 'v6_experiment1'"
 )
 parser.add_argument(
-    "--min_year",
+    "--last_percentage",
     type=int,
-    default=1900,
+    default=100,
     help="Nur Zeilen verwenden, deren Jahr >= diesem Jahr ist (z.B. 2020)"
 )
 parser.add_argument(
-    "--max_year",
-    type=int,
-    default=2300,
-    help="Nur Zeilen verwenden, deren Jahr <= diesem Jahr ist (z.B. 2020)"
+    "--csv_path",
+    type=str,
+    default=None,
+    help="Zusätzliches CSV"
 )
+parser.add_argument(
+    "--int_path",
+    type=str,
+    default=None,
+    help="Zusätzliches CSV, welches immer vollständig genutzt wird"
+)
+
 args = parser.parse_args()
 SUFFIX = args.suffix
-MIN_YEAR = args.min_year
-MAX_YEAR = args.max_year
+CSV_PATH = args.csv_path
+INT_PATH = args.int_path
+LAST_PERCENTAGE = args.last_percentage
 
 
 def is_excluded_label(t: str) -> bool:
@@ -108,18 +115,24 @@ def is_year_label(t: str) -> bool:
 # ==========================
 # 1) CSV einlesen & vorbereiten
 # ==========================
-df1 = pd.read_csv(CSV_PATH)
-
-if INT_PATH is not None:
-    if Path(INT_PATH).exists():
-        df2 = pd.read_csv(INT_PATH)
-        df = pd.concat([df1, df2], ignore_index=True)
-    else:
-        df = df1
+# Szenario "alles"
+if INT_PATH is None and LAST_PERCENTAGE == 100:
+    df = pd.read_csv(CSV_PATH)
+# Szenario "Nur ein Teil"
+elif INT_PATH is None and LAST_PERCENTAGE < 100:
+    df = pd.read_csv(CSV_PATH)
+    df = df.sort_values(by=["year", "created"], ascending=[True, True])
+    n_keep = max(1, int(len(df) * last_percentage / 100))
+    df = df.tail(n_keep)
+elif INT_PATH is not None and LAST_PERCENTAGE <= 100:
+    df_csv = pd.read_csv(CSV_PATH)
+    df_int = pd.read_csv(INT_PATH)
+    df = pd.concat([df_csv, df_int], ignore_index=True)
+    n_keep = max(len(df_int), int(len(df) * last_percentage / 100))
+    df = df.tail(n_keep)
 else:
-    df = df1
+    print("cannot work with parameters: int_path=" + int_path + ", csv_path=" + csv_path + ", last_percentage=" + last_percentage)
 
-df = df[df["year"] >= MIN_YEAR].copy()
 
 def split_tags(x):
     return [t.strip() for t in str(x).split(",") if t.strip()]
