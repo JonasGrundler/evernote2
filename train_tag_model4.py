@@ -140,7 +140,7 @@ elif INT_PATH is not None and LAST_PERCENTAGE <= 100:
     df = pd.concat([df, df_int], ignore_index=True)
     n_keep = max(len(df_int), int(len(df) * LAST_PERCENTAGE / 100))
     df = df.tail(n_keep)
-    df.to_csv(INT_PATH + ".merged", index=False, encoding="utf-8")
+    df.to_csv(INT_PATH + suffix + ".merged", index=False, encoding="utf-8")
 else:
     sys.stdout.write("cannot work with parameters: int_path=" + INT_PATH + ", csv_path=" + CSV_PATH + ", last_percentage=" + LAST_PERCENTAGE + "\n")
     sys.stdout.flush()
